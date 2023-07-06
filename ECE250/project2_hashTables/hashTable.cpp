@@ -17,7 +17,7 @@ hashTable::hashTable(int memSize, int pageSize)
         memoryAllocator[i] = 0;
     }
 
-    this->hash_double = new process[numberOfPages]; // created the hash table dynamically with size m=N/P HOW DO I MAKE THIS A ARRAY OF 0S? for loop {}
+    this->hash_double = new process[numberOfPages]; // created the hash table dynamically with size m=N/P
     
     this->hash_chain = new vector<process>[numberOfPages]; // array of vectors vector size
 
@@ -46,7 +46,7 @@ void hashTable::search_chaining(int PID)
     for (i = 0; i < (this->hash_chain[probe].size()); i++)
     { // iterate throught he indices in the hash table that is linear for open addressing
         if (hash_chain[probe][i].getPID() == PID)
-        {                // i can only increase until it reaches the size fo the vector
+        {              
             check = PID; // set check to be the PID if found in the array, if not check will remain 0
         }
     }
@@ -104,7 +104,6 @@ void hashTable::search_double(int PID)
 
     for(i=0; i<numberOfPages; i++){
         int newProbe = (probe + (i * offset)) % this->numberOfPages;
-        // cout << i << " probe: " << newProbe << endl;
 
         if (hash_double[newProbe].getPID() == PID){
             cout << "found " << (hash_double[newProbe].getPID()) << " in " << newProbe << endl;
@@ -112,7 +111,7 @@ void hashTable::search_double(int PID)
             return;
         }
 
-        else if (hash_double[newProbe].getFlag() == 0) {//0 for unallocated, there is no way we have the 
+        else if (hash_double[newProbe].getFlag() == 0) {
             cout << "not found" << endl;
             return;
         }
@@ -140,12 +139,11 @@ bool hashTable::searchDoubleBool(int PID)
         int newProbe = (probe + (i * offset)) % this->numberOfPages;
 
         if (hash_double[newProbe].getPID() == PID){
-            // cout << "found " << (hash_double[newProbe].getPID()) << " in " << newProbe << endl;
             check = true;
             return check;
         }
 
-        else if (hash_double[newProbe].getFlag() == 0) {//0 for unallocated, there is no way we have the 
+        else if (hash_double[newProbe].getFlag() == 0) {
             return check;
         }
     } 
@@ -174,7 +172,7 @@ void hashTable::insert_chaining(int PID)
 
     // find the opening in the memory array
     for (i = 0; i < this->numberOfPages; i++)
-    { // search through the memory allocator array which is size m to find the next empty spot in the array,
+    { // search through the memory allocator array which is size m to find the next empty spot in the array
         if (memoryAllocator[i] == 0)
         {
             pageAddressIndex = i;
@@ -194,9 +192,9 @@ void hashTable::insert_chaining(int PID)
     // add sorted to the chain
         for (i2 = 0; i2 < this->hash_chain[probe].size(); i2++){ // linearly search through the vector in the probe's position in the main array
             if (hash_chain[probe][i2].getPID() < PID)
-            {                                                                                                                     // once the PID we wnat to insert is less than what were looking at, we insert there
+            {                                                                
                 hash_chain[probe].insert(hash_chain[probe].begin() + i2, process(PID, (pageAddressIndex * this->getPageSize()), 0)); // insert the Process object with the constructor
-                memoryAllocator[pageAddressIndex] = PID;                                                                          // set the int value to be the PID in the memory allocator array
+                memoryAllocator[pageAddressIndex] = PID;  // set the int value to be the PID in the memory allocator array
                 count++;
                 cout << "success" << endl;
                 return;
@@ -223,7 +221,7 @@ void hashTable::insert_doubleHash(int PID)
         return;
     }
 
-    // check if the PID already exists in the hash table - LINEAR SEARCH NOW CREATE A BOOL FUNCTION FO RTHIS THAT DOESNT DO THIS LINEARLY
+    // check if the PID already exists in the hash table - LINEAR SEARCH NOW CREATE A BOOL FUNCTION FOR THIS THAT DOESNT DO THIS LINEARLY
     if (searchDoubleBool(PID))
     {
         cout << "failure" << endl;
@@ -307,7 +305,6 @@ void hashTable::readChaining(int PID, int virtualAddress)
     else
     {
         int value = memory[findPageNumberChaining(PID) + virtualAddress];
-        //int address = findPageNumberChaining(PID) + virtualAddress;
         cout << virtualAddress << " " << value << endl;
     }
 }
@@ -329,7 +326,6 @@ void hashTable::readDouble(int PID, int virtualAddress)
     else
     {
         int value = memory[findPageNumberDouble(PID) + virtualAddress];
-        //int address = findPageNumberChaining(PID) + virtualAddress;
         cout << virtualAddress << " " << value << endl;
     }
 }
@@ -340,7 +336,7 @@ int hashTable::findPageNumberChaining(int PID)
     int probe = PID % (this->numberOfPages);
 
     for (i = 0; i < (this->hash_chain[probe].size()); i++)
-    { // iterate throught he indices in the hash table that is linear for open addressing
+    { // iterate through the indices in the hash table that is linear for open addressing
         if (hash_chain[probe][i].getPID() == PID)
         {
             return (hash_chain[probe][i].getPageAddress()); // set check to be the PID if found in the array, if not check will remain 0
@@ -468,8 +464,8 @@ void hashTable::print(int m)
         int i;
 
         for (i = 0; i < (this->hash_chain[m].size()); i++)
-        {                                                     // iterate throught the vector in index m
-            cout << hash_chain[m][i].getPID() << " "; // this is wrong how do i print in the right format
+        {   // iterate throught the vector in index m
+            cout << hash_chain[m][i].getPID() << " ";
         }
         cout<<endl;
     }

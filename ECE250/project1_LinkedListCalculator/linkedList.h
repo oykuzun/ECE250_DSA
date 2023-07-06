@@ -5,10 +5,10 @@ using namespace std;
 class LinkedList
 {
 private:
-    Node *headPointer; // create the head and tail pointer for the linked list- there is a var called head, it is apointer and it is pointing to a node
+    Node *headPointer; 
     Node *tailPointer;
     int sizeList; // in order to keep track of the size of the list
-    int capacityList; // assign the input to the crt we pass the input to the crt function to capacity
+    int capacityList;
 
 public:
     Node *link;

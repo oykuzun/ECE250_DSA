@@ -3,9 +3,9 @@
 using namespace std;
 
 
-void LinkedList::setHead(Node *head) // setting the head to be a pointer called head (the parameter being passed is a pointer called head)
+void LinkedList::setHead(Node *head)
 {
-    this->headPointer = head; //"this" calls the object that is called by the function
+    this->headPointer = head;
 }
 
 Node *LinkedList::getHead()
@@ -30,8 +30,7 @@ void LinkedList::setSize(int size)
 
 int LinkedList::getSize()
 {
-    return this->sizeList; //"this" accesses the variable for that object that called the getter and setter specifically
-}
+    return this->sizeList;
 void LinkedList::setCapacity(int capacity)
 {
     this->capacityList = capacity;
@@ -44,10 +43,10 @@ int LinkedList::getCapacity()
 
 LinkedList::LinkedList(int N)
 {
-    this->capacityList = N; // no need to use the setter since we are still in the class, set the capacity
+    this->capacityList = N; 
     this->setSize(0);
     headPointer = nullptr; // node variables are null
-    tailPointer = headPointer;       // only one node - head and tail are pointing to the same node?
+    tailPointer = headPointer;
     link = nullptr;
 }
 
@@ -63,8 +62,8 @@ LinkedList::~LinkedList()
     {
         t = p;
         p = p->getNextPointer();
-        delete t; // delete the contents tha the head pointer was pointing at
-        t = nullptr;    // now update the head pointer to be p which was the temp
+        delete t; // delete the contents that the head pointer was pointing to
+        t = nullptr; // now update the head pointer to be p which was the temp
         // at the end our hea dpointer will be null
     }
     p = nullptr;
@@ -88,23 +87,21 @@ void LinkedList::insert(string name, double x) //adding to the beginning and the
             return;
         }
 
-        else if (this->search(name)) //check if the variable exists search is messed up
+        else if (this->search(name))
         {
-            cout << "failure" << endl ; //failure since the var alr exists
+            cout << "failure" << endl ; //failure since the variable alr exists
             return;
         }
 
         else // inserting at the tail
         {
             Node *t = new Node(name, x); // create a pointer that points to a new node created with the values that the insert function takes
-            //this->tailPointer->setNextPointer(t); // tail is pointing at t now so the last node that we created - need to use tail. since we access node's member functions in linked list class
             this->tailPointer = t; // move the tail pointer to the new node added which is pointed to by t
             this->link->setNextPointer(tailPointer);
             this->tailPointer->setNextPointer(nullptr);
             link = link ->getNextPointer();
             sizeList++;                      
             cout << "success" << endl;
-            // now the tail pointer a dont e ven need this?
             return;
         }
     }
@@ -135,8 +132,8 @@ Node* LinkedList::searchNode(string name) //return the pointer pointing tot he n
     while (p != nullptr)
     {
         if (p->getStringName() == name)
-        { // if key is in the list return the value
-            return p; //would this return the pointer pointing at the node with that str name
+        {
+            return p;
         }
             p = p->getNextPointer();
     }
@@ -145,13 +142,13 @@ Node* LinkedList::searchNode(string name) //return the pointer pointing tot he n
 
 Node* LinkedList::getPreviousNode(string name) //return the pointer for the previous node
 {
-    Node *p = headPointer; // start at the top of the list
+    Node *p = headPointer;
 
     while (p != nullptr)
     {
         if (p->getNextPointer()->getStringName() == name)
         { // if key is in the list return the value
-            return p; //would this return the pointer pointing at the node with that str name
+            return p;
         }
             p = p->getNextPointer();
     }
@@ -164,18 +161,7 @@ void LinkedList::print(string name)
     {
         cout << searchNode(name)-> getData()<< endl;
     }
-   
-   //Node *p = headPointer; // start at the top of the list
 
-    // while (p != nullptr)
-    // {
-    //     if (p->getStringName() == name)
-    //     {
-    //         cout<< p->getData() << endl;//how woud I get the data - prints -2.14748e+09 when teh value set is 2??
-    //         return;
-    //     }
-    //         p = p->getNextPointer();
-    // }
     else
     {
         cout<<"variable " << name << " not found" <<endl;

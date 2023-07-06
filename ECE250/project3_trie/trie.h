@@ -5,21 +5,16 @@
 using namespace std;
 
 class illegal_argument : public std::exception {
-    //public:
-
-    //string message(){return "illegal argument";} //overwrote the message function in exception class
+    
 };
 
 class trie{
     
     private:
-    trieNode *root; //ptr always point to the root - this is a trie variable right not the node????
+    trieNode *root;
     int numberOfWords;
-    //should there be a counter for the number of words? that counts the terminal 
-
 
     public:
-    
     trie();
     void setRoot(trieNode*);
     trieNode* getRoot();

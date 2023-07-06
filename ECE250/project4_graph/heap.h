@@ -9,7 +9,7 @@ using namespace std;
 
 class heap{
     private:
-    vector<edge> heapVector; //vector of all edges that will be heapified - might need to convert to pointer
+    vector<edge> heapVector;
 
     public:
     //heap();
@@ -23,7 +23,6 @@ class heap{
     edge extractMin();
     bool checkHeapEmpty();
 
-    //destructor here to call from the graph class?
 };
 
 #endif

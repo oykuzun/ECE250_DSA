@@ -55,8 +55,7 @@ edge heap::extractMin(){
     
     int heapSize = heapVector.size();
     heapVector[0] = heapVector[heapSize-1]; // move the last element which is the next smallest after the root in the palce of root
-    //will this affect the root I extracted which has the min now?
-    heapVector.pop_back(); //do i need to pop back from the heap vector? adjust the size?
+    heapVector.pop_back();
 
     heapify(0); //call heapify from top to bottom
     return min;
@@ -74,10 +73,3 @@ void heap::insert(edge key){
     }
     heapVector[endHeap] = key;
 }
-
-// void heap::insert(edge edge){
-//     this->heapVector->push_back(edge);
-//     int endHeap = this->heapVector->size() - 1;
-//     heapify(this->heapVector, endHeap);//heapify bottom up not going to work i think, see clrs book insert!!!!!
-//     return;
-// }

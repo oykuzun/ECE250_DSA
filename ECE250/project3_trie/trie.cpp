@@ -27,7 +27,7 @@ void trie::insert(string key, bool print)
     { // go through the string and check if any is out of bound
         if (key[c] < 'A' || key[c] > 'Z')
         {
-            throw illegal_argument(); // in the main do the throw catch thing
+            throw illegal_argument(); // in the main do the throw catch thing!!
         }
     }
 

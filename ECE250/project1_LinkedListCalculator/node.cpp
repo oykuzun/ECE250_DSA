@@ -5,7 +5,7 @@ using namespace std;
 
 
 // constructor
-Node::Node(string name, double x) // overloading the constructor with parameters so when we are defininf a new var, we can call this constructor
+Node::Node(string name, double x) 
 {
     this->stringName = name;
     this->data = x;
@@ -28,7 +28,7 @@ string Node::getStringName()
 
 void Node::setData(double value)
 {
-    this->data = value; // set the node's data to the value specified to the setter
+    this->data = value;
 }
 
 double Node::getData()

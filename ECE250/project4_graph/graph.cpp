@@ -4,22 +4,6 @@
 #include <tuple>
 using namespace std;
 
-// need to remove before testing on linux!!!!!!
-//#include "edge.cpp"
-
-// graph::graph(){
-//     graphArray = new vector<edge>[50001]();
-//     for (int i = 0; i<50001; i++){
-//        graphArray[i] = new vector<edge> ;
-//     }
-//}
-// graph::graph(){    
-//     for (int i = 0; i<50001; i++){
-//         this-> graphArray[i] = new vector<edge> ;
-//     }
-    
-//     this->numberOfVertices = 0; //initially no edges
-// }
 
 int graph::getNumberOfVertices(){
     return this->numberOfVertices;
@@ -33,11 +17,11 @@ void graph::setNumberOfVertices(int value){
 void graph::insert(int vertex1, int vertex2, int weight, bool print){
 
     if (vertex1 <= 0 || vertex1 > 50001 || vertex2 <= 0 || vertex2 > 50001 || weight <= 0){
-        throw illegal_argument(); // in the main do the throw catch
+        throw illegal_argument();
     }
 
     if (vertex1 == 50001 || vertex2 == 50001){
-        throw illegal_argument(); // in the main do the throw catch
+        throw illegal_argument();
     }
     if (checkEdge(vertex1, vertex2, weight)){ //only need to check one edge
         //the edge already exists int he graph, return
@@ -57,13 +41,11 @@ void graph::insert(int vertex1, int vertex2, int weight, bool print){
             graphArray[vertex1].push_back(edge(vertex1, vertex2, weight));
             graphArray[vertex2].push_back(edge(vertex2, vertex1, weight));
             numberOfVertices += 2;
-            //setNumberOfVertices(this->getNumberOfVertices() + 2); //increment the number of vertices in the graph by TWO
             
             vertices.push_back(vertex1);
             vertices.push_back(vertex2);
 
             //aviod duplicating the edge in the edgeVector - check the 
-            //heapVector->push_back(edge(vertex1, vertex2, weight)); //add the tuples to the heap vector
             if (print){
             cout << "success" << endl;
             }
@@ -82,9 +64,6 @@ void graph::insert(int vertex1, int vertex2, int weight, bool print){
             graphArray[vertex1].push_back(edge(vertex1, vertex2, weight));
             graphArray[vertex2].push_back(edge(vertex2, vertex1, weight));
             numberOfVertices++;
-            //figure out which one does not exist and insert the accordinly 
-            //heapVector->push_back(edge(vertex1, vertex2, weight));//am I duplicating?
-            
             if (print){
             cout << "success" << endl;
             }
@@ -96,7 +75,6 @@ void graph::insert(int vertex1, int vertex2, int weight, bool print){
         graphArray[vertex1].push_back(edge(vertex1, vertex2, weight));
         graphArray[vertex2].push_back(edge(vertex2, vertex1, weight));
         numberOfVertices++;
-        //heapVector->push_back(edge(vertex1, vertex2, weight));
         if (print){
             cout << "success" << endl;
         }
@@ -107,7 +85,7 @@ void graph::insert(int vertex1, int vertex2, int weight, bool print){
 
 bool graph::checkEdge(int vertex1Index, int vertex2Index, int weight){ //check for the edge in both of the adjacency lists for v1 and v2
 
-    if (graphArray[vertex1Index].empty() ){ //{&& graphArray[vertex1Index].empty()){
+    if (graphArray[vertex1Index].empty() ){
         return false;
         //since bidrectional, and we insert in both places, only checking one is enough
     }
@@ -119,13 +97,6 @@ bool graph::checkEdge(int vertex1Index, int vertex2Index, int weight){ //check f
             }
         }
     }
-    //checking the second vector (adjacency list of the second vertex)
-    // for (int i = 0; i< graphArray[vertex2Index].size(); i++){
-    //     if (graphArray[vertex2Index].at(i).getVertex1() == vertex2Index && graphArray[vertex2Index].at(i).getVertex2() == vertex1Index){ //the edge exists in the vector for the first vector
-    //         return true;
-    //     }
-    // }
-
     return false;
 }
 
@@ -143,7 +114,7 @@ bool graph::checkEmpty(){
 void graph::print(int vertex){
 
     if (vertex <= 0 || vertex > 50001 || vertex == 50001){
-        throw illegal_argument(); // in the main do the throw catch
+        throw illegal_argument();
     }
 
     if (checkEmpty()){ //graph is empty, no vertex exist
@@ -168,7 +139,7 @@ void graph::print(int vertex){
 void graph::erase(int vertex){
 
     if (vertex <= 0 || vertex > 50001 || vertex == 50001){
-        throw illegal_argument(); // in the main do the throw catch
+        throw illegal_argument();
     }
 
     if (getNumberOfVertices() == 0){ //graph is empty, no vertex exist
@@ -235,7 +206,7 @@ void graph::MST(bool cost){
     while (!(priorityQueue.checkHeapEmpty())){ //since MST will only have V-1 edges and our heap is edge based? this might be wrong
         
         edge minimum = priorityQueue.extractMin();
-        if (visited[minimum.getVertex2()]){ //1 or 2??
+        if (visited[minimum.getVertex2()]){
             continue;
         }
 
@@ -279,40 +250,3 @@ void graph::MST(bool cost){
     }
 
 }
-
-//graph::~graph{//destructor to end things
-    //MSTVector is vector of edges
-    //priority queue is a pointer to vector of edges ?? should I change this?
-    //graphArray is an array of vector of edge objects
-    //delete and empty all of these here
-
-//}
-
-
-//pick a node to start with, add all teh adj edges for that node to your heap (array of edges)
-//while looop to keep adding edges to your MST array
-//extract min from teh heap which has tehe edges for that vertex, according tt he weights
-//add the extracted edge to the MST vector
-//then get the 
-//bool array of 50001 to check if the node was visited when 
-
-
-
-
-//ADD ALL THE NODES TO THE HEAP connected to the vertex
-//minHeap class will be a vector that will have the edges and the weights in the 
-//extract the min - and then add ll the edges for the extracted vertex's edges and then heapify
-
-//check if the vertex is in the visited node list, 
-//visited vertices kept track of in a vector of bool for all the vertices
-
-
-//after heapify, check the destination - the visited node, 
-//extract the min from the heap, if the destination is in the visited nodes, extract and ignore
-//and then add al the edegs to the heap to be heapified
-//add the weight of the egde you just popped (if added to the visited vector) to the weight vectr
-//and then add all the adjcacent edges to the heap
-//
-//insert and delete are go up; extract min is go down
-
-
